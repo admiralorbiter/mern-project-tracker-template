@@ -24,7 +24,7 @@ async function add(_, { project }) {
   const db = getDb();
   validate(project);
 
-  const newProject = Object.assign({}, issue);
+  const newProject = Object.assign({}, project);
   newProject.created = new Date();
   newProject.id = await getNextSequence('projects');
 

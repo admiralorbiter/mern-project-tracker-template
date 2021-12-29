@@ -16,7 +16,7 @@ export default class ProjectAdd extends React.Component {
       due: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
     };
     const { createProject } = this.props;
-    createProject(issue);
+    createProject(project);
     form.owner.value = ''; form.title.value = '';
   }
 

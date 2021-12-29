@@ -18,7 +18,7 @@ type Project {
   due: GraphQLDate
 }
 
-"Toned down Issue, used as inputs, without server generated values."
+"Toned down Project, used as inputs, without server generated values."
 input ProjectInputs {
   title: String!
   "Optional, if not supplied, will be set to 'New'"
