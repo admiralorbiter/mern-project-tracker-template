@@ -47,7 +47,7 @@ export default class ProjectList extends React.Component {
     const { projects } = this.state;
     return (
       <React.Fragment>
-        <h1>Issue Tracker</h1>
+        <h1>Project Tracker</h1>
         <ProjectFilter />
         <hr />
         <ProjectTable projects={projects} />

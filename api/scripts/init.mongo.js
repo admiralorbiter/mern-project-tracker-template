@@ -12,9 +12,9 @@
 /* global db print */
 /* eslint no-restricted-globals: "off" */
 
-db.issues.remove({});
+db.projects.remove({});
 
-const issuesDB = [
+const projectsDB = [
   {
     id: 1,
     status: 'New',
@@ -35,14 +35,14 @@ const issuesDB = [
   },
 ];
 
-db.issues.insertMany(issuesDB);
-const count = db.issues.count();
-print('Inserted', count, 'issues');
+db.projects.insertMany(projectsDB);
+const count = db.projects.count();
+print('Inserted', count, 'projects');
 
-db.counters.remove({ _id: 'issues' });
-db.counters.insert({ _id: 'issues', current: count });
+db.counters.remove({ _id: 'projects' });
+db.counters.insert({ _id: 'projects', current: count });
 
-db.issues.createIndex({ id: 1 }, { unique: true });
-db.issues.createIndex({ status: 1 });
-db.issues.createIndex({ owner: 1 });
-db.issues.createIndex({ created: 1 });
+db.projects.createIndex({ id: 1 }, { unique: true });
+db.projects.createIndex({ status: 1 });
+db.projects.createIndex({ owner: 1 });
+db.projects.createIndex({ created: 1 });

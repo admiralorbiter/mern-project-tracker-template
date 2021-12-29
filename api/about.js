@@ -1,4 +1,4 @@
-let aboutMessage = 'Issue Tracker API v1.0';
+let aboutMessage = 'Project Tracker API v1.0';
 
 function setMessage(_, { message }) {
   aboutMessage = message;

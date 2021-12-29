@@ -33,7 +33,7 @@ export default function ProjectTable({ projects }) {
         </tr>
       </thead>
       <tbody>
-        {/* {projectRows} */}
+        {projectRows}
       </tbody>
     </table>
   );
