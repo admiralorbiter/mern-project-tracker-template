@@ -1,7 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink, withRouter} from 'react-router-dom';
 
-function ProjectRow({ project }) {
+const ProjectRow = withRouter(({project, location:{search}}) => {
+  const selectLocation = { pathname: `/projects/${project.id}`, search };
   return (
     <tr>
       <td>{project.id}</td>
@@ -11,10 +12,14 @@ function ProjectRow({ project }) {
       <td>{project.effort}</td>
       <td>{project.due ? project.due.toDateString() : ''}</td>
       <td>{project.title}</td>
-      <td><Link to={`/edit/${project.id}`}>Edit</Link></td>
+      <td>
+        <Link to={`/edit/${project.id}`}>Edit</Link>
+        {' | '}
+        <NavLink to={selectLocation}>Details</NavLink>
+      </td>
     </tr>
   );
-}
+});
 
 export default function ProjectTable({ projects }) {
   const projectRows = projects.map(project => (

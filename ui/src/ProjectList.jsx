@@ -1,10 +1,12 @@
 import React from 'react';
 import URLSearchParams from 'url-search-params';
+import { Route } from 'react-router-dom';
 
 import ProjectAdd from './ProjectAdd.jsx';
 import graphQLFetch from './graphQLFetch.js';
 import ProjectTable from './ProjectTable.jsx';
 import ProjectFilter from './ProjectFilter.jsx';
+import ProjectDetail from './ProjectDetail.jsx';
 
 export default class ProjectList extends React.Component {
   constructor() {
@@ -58,6 +60,8 @@ export default class ProjectList extends React.Component {
 
   render() {
     const { projects } = this.state;
+    const { match } = this.props;
+
     return (
       <React.Fragment>
         <h1>Project Tracker</h1>
@@ -66,6 +70,8 @@ export default class ProjectList extends React.Component {
         <ProjectTable projects={projects} />
         <hr />
         <ProjectAdd createProject={this.createProject} />
+        <hr />
+        <Route path={`${match.path}/:id`} component={ProjectDetail} />
       </React.Fragment>
     );
   }

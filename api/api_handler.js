@@ -10,6 +10,7 @@ const resolvers = {
   Query: {
     about: about.getMessage,
     projectList: project.list,
+    project: project.get,
   },
   Mutation: {
     setAboutMessage: about.setMessage,
