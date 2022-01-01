@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 function ProjectRow({ project }) {
   return (
@@ -10,7 +11,7 @@ function ProjectRow({ project }) {
       <td>{project.effort}</td>
       <td>{project.due ? project.due.toDateString() : ''}</td>
       <td>{project.title}</td>
-      <td><a href={`/#/edit/${project.id}`}>Edit</a></td>
+      <td><Link to={`/edit/${project.id}`}>Edit</Link></td>
     </tr>
   );
 }

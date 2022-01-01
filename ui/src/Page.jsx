@@ -1,15 +1,16 @@
 import React from "react";
+import {NavLink} from 'react-router-dom'
 
 import Contents from "./Contents.jsx";
 
 function NavBar(){
     return (
         <nav>
-            <a href="/">Home</a>
+            <NavLink exact to="/">Home</NavLink>
             {' | '}
-            <a href="/projects">Projects</a>
+            <NavLink to="/projects">Project List</NavLink>
             {' | '}
-            <a href="/report">Report</a>
+            <NavLink to="/report">Report</NavLink>
         </nav>
     )
 }

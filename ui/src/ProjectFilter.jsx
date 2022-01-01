@@ -1,16 +1,21 @@
 /* eslint "react/prefer-stateless-function": "off" */
 
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default class ProjectFilter extends React.Component {
   render() {
     return (
       <div>
-        <a href="/#/projects">All Projects</a>
+        <Link to="/projects">All Projects</Link>
         {' | '}
-        <a href="/#/projects?status=New">New Projects</a>
+        <Link to={{ pathname: '/projects', search: '?status=New' }}>
+        New Issues
+        </Link>
         {' | '}
-        <a href="/#/projects?status=Assigned">Assigned Projects</a>
+        <Link to={{ pathname: '/projects', search: '?status=Assigned' }}>
+        Assigned Issues
+        </Link>
       </div>
     );
   }
