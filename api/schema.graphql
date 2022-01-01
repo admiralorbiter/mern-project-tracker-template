@@ -32,7 +32,7 @@ input ProjectInputs {
 
 type Query {
   about: String!
-  projectList: [Project!]!
+  projectList(status: StatusType): [Project!]!
 }
 
 type Mutation {

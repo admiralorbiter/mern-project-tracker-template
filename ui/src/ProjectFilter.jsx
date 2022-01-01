@@ -5,7 +5,13 @@ import React from 'react';
 export default class ProjectFilter extends React.Component {
   render() {
     return (
-      <div>This is a placeholder for the project filter.</div>
+      <div>
+        <a href="/#/projects">All Projects</a>
+        {' | '}
+        <a href="/#/projects?status=New">New Projects</a>
+        {' | '}
+        <a href="/#/projects?status=Assigned">Assigned Projects</a>
+      </div>
     );
   }
 }

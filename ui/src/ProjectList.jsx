@@ -1,4 +1,5 @@
 import React from 'react';
+import URLSearchParams from 'url-search-params';
 
 import ProjectAdd from './ProjectAdd.jsx';
 import graphQLFetch from './graphQLFetch.js';
@@ -16,15 +17,27 @@ export default class ProjectList extends React.Component {
     this.loadData();
   }
 
+  componentDidUpdate(prevProps) {
+    const { location: {search: prevSearch} } = prevProps;
+    const { location: {search} } = this.props;
+    if(prevSearch !== search){
+      this.loadData();
+    }
+  }
+
   async loadData() {
-    const query = `query {
-      projectList {
+    const {location: {search}} = this.props;
+    const params = new URLSearchParams(search);
+    const vars = {};
+    if(params.get('status'))vars.status = params.get('status');
+    const query = `query projectList($status: StatusType) {
+      projectList(status: $status) {
         id title status owner
         created effort due
       }
     }`;
 
-    const data = await graphQLFetch(query);
+    const data = await graphQLFetch(query, vars);
     if (data) {
       this.setState({ projects: data.projectList });
     }
