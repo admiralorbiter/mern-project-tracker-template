@@ -10,6 +10,7 @@ function ProjectRow({ project }) {
       <td>{project.effort}</td>
       <td>{project.due ? project.due.toDateString() : ''}</td>
       <td>{project.title}</td>
+      <td><a href={`/#/edit/${project.id}`}>Edit</a></td>
     </tr>
   );
 }
@@ -30,6 +31,7 @@ export default function ProjectTable({ projects }) {
           <th>Effort</th>
           <th>Due Date</th>
           <th>Title</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
