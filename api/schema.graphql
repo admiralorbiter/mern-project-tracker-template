@@ -34,7 +34,11 @@ input ProjectInputs {
 
 type Query {
   about: String!
-  projectList(status: StatusType): [Project!]!
+  projectList(
+    status: StatusType
+    effortMin: Int
+    effortMax: Int
+  ): [Project!]!
   project(id: Int!): Project!
 }
 

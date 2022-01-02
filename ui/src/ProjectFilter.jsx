@@ -10,11 +10,16 @@ class ProjectFilter extends React.Component {
   constructor({location: {search}}) {
     super();
     const params = new URLSearchParams(location.search);
-    this.state={status: params.get('status')|| '', changed: false};
+    this.state={status: params.get('status')|| '',
+                effortMin: params.get('effortMin')|| '',
+                effortMax: params.get('effortMax')|| '',
+                changed: false};
 
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.applyFilter = this.applyFilter.bind(this);
     this.showOriginalFilter = this.showOriginalFilter.bind(this);
+    this.onChangeEffortMin = this.onChangeEffortMin.bind(this);
+    this.onChangeEffortMax = this.onChangeEffortMax.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -27,13 +32,29 @@ class ProjectFilter extends React.Component {
     this.setState({status: e.target.value, changed: true});
   }
 
+  onChangeEffortMin(e) {
+    const effortString = e.target.value;
+    if (effortString.match(/^\d*$/)) {
+      this.setState({ effortMin: e.target.value, changed: true });
+    }
+  }
+
+  onChangeEffortMax(e) {
+    const effortString = e.target.value;
+    if (effortString.match(/^\d*$/)) {
+      this.setState({ effortMax: e.target.value, changed: true });
+    }
+  }
+
   applyFilter(){
-    const {status} = this.state;
+    const {status, effortMin, effortMax} = this.state;
     const {history} = this.props;
-    history.push({
-      pathname: '/projects',
-      search: status? `?status=${status}`: '',
-    })
+    const params = new URLSearchParams();
+    if (status) params.set('status', status);
+    if (effortMin) params.set('effortMin', effortMin);
+    if (effortMax) params.set('effortMax', effortMax);
+    const search = params.toString() ? `?${params.toString()}` : '';
+    history.push({ pathname: '/projects', search });
   }
 
   showOriginalFilter() {
@@ -47,6 +68,7 @@ class ProjectFilter extends React.Component {
 
   render() {
     const{status, changed} = this.state;
+    const { effortMin, effortMax } = this.state;
     const {location: {search}} = this.props;
     const params = new URLSearchParams(search);
     return (
@@ -61,9 +83,29 @@ class ProjectFilter extends React.Component {
           <option value="Closed">Closed</option>
         </select>
         {' '}
-        <button type = "button" onClick = {this.applyFilter}>Apply</button>
+          Effort between:
         {' '}
-        <button type = "button" onClick = {this.showOriginalFilter} disabled={!changed}>Reset</button>
+        <input
+          size={5}
+          value={effortMin}
+          onChange={this.onChangeEffortMin}
+        />
+        {' - '}
+        <input
+          size={5}
+          value={effortMax}
+          onChange={this.onChangeEffortMax}
+        />
+        {' '}
+        <button type="button" onClick={this.applyFilter}>Apply</button>
+        {' '}
+        <button
+          type="button"
+          onClick={this.showOriginalFilter}
+          disabled={!changed}
+        >
+          Reset
+        </button>
       </div>
     );
   }
