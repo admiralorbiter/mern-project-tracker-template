@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NumInput from './NumInput.jsx';
 
 import graphQLFetch from './graphQLFetch.js';
 
@@ -13,6 +14,7 @@ export default class ProjectEdit extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
     componentDidMount() {
         this.loadData();
     }
@@ -25,8 +27,9 @@ export default class ProjectEdit extends React.Component {
         }
       }
     
-      onChange(event) {
-        const { name, value } = event.target;
+      onChange(event, naturalValue) {
+        const { name, value: textvalue } = event.target;
+        const value = naturalValue === undefined ? textValue : naturalValue;
         this.setState(prevState => ({
           project: { ...prevState.project, [name]: value },
         }));
@@ -54,9 +57,9 @@ export default class ProjectEdit extends React.Component {
           project.effort = project.effort != null ? project.effort.toString() : '';
           project.owner = project.owner != null ? project.owner : '';
           project.description = project.description != null ? project.description : '';
-          this.setState({ project });
+          this.setState({ project});
         } else {
-          this.setState({ project: {} });
+          this.setState({ project: {}});
         }
       }
     
@@ -69,7 +72,7 @@ export default class ProjectEdit extends React.Component {
           }
           return null;
         }
-    
+
         const { project: { title, status } } = this.state;
         const { project: { owner, effort, description } } = this.state;
         const { project: { created, due } } = this.state;
@@ -107,10 +110,11 @@ export default class ProjectEdit extends React.Component {
                 <tr>
                   <td>Effort:</td>
                   <td>
-                    <input
+                    <NumInput
                       name="effort"
                       value={effort}
                       onChange={this.onChange}
+                      key={id}
                     />
                   </td>
                 </tr>
