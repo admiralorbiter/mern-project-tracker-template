@@ -21,6 +21,18 @@ async function list(_, { status, effortMin, effortMax }) {
   return projects;
 }
 
+async function update(_, { id, changes }) {
+  const db = getDb();
+  if(changes.title || changes.description || changes.status || changes.effort){
+    const project = await db.collection('projects').findOne({id});
+    Object.assign(project, changes);
+    validate(project);
+  }
+  await db.collection('projects').updateOne({id}, {$set: changes});
+  const savedProject = await db.collection('projects').findOne({id});
+  return savedProject;
+}
+
 function validate(project) {
   const errors = [];
   if (project.title.length < 3) {
@@ -48,4 +60,4 @@ async function add(_, { project }) {
   return savedProject;
 }
 
-module.exports = { list, add, get};
+module.exports = { list, add, get, update};

@@ -36,10 +36,30 @@ export default class ProjectEdit extends React.Component {
         }));
       }
     
-      handleSubmit(e) {
+      async handleSubmit(e) {
         e.preventDefault();
         const { project } = this.state;
         console.log(project); // eslint-disable-line no-console
+        const query = `mutation projectUpdate(
+          $id: Int!
+          $changes: ProjectUpdateInputs!
+        ) {
+          projectUpdate(
+            id: $id
+            changes: $changes
+          ) {
+            id title status owner
+            effort created due description
+          }
+        }`;
+
+        const {id, created, ...changes} = project;
+        const data = await graphQLFetch(query, {changes, id});
+        if (data) {
+          this.setState({ project: data.projectUpdate });
+          alert('Updated issue successfully'); // eslint-disable-line no-alert
+        }
+
       }
     
       async loadData() {
