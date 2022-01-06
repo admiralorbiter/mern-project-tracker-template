@@ -14,6 +14,7 @@ export default class ProjectList extends React.Component {
     this.state = { projects: [] };
     this.createProject = this.createProject.bind(this);
     this.closeProject = this.closeProject.bind(this);
+    this.deleteProject = this.deleteProject.bind(this);
   }
 
   componentDidMount() {
@@ -81,6 +82,30 @@ export default class ProjectList extends React.Component {
     }
   }
 
+  async deleteProject(index) {
+    index--;//Added this so index aligns with id. it differs from the book i follow, so potentially an error somewhere else.
+    const query = `mutation projectDelete($id: Int!) {
+      projectDelete(id: $id)
+    }`;
+    const { projects } = this.state;
+    const { location: { pathname, search }, history } = this.props;
+    console.log(projects);
+    const { id } = projects[index];
+    const data = await graphQLFetch(query, { id });
+    if (data && data.projectDelete) {
+      this.setState(prevState => {
+        const newList = [...prevState.projects];
+        if (pathname === `/projects/${id}`) {
+          history.push({ pathname: '/projects', search });
+        }
+        newList.splice(index, 1);
+        return { projects: newList };
+      });
+    } else {
+      this.loadData();
+    }
+  }
+
   async createProject(project) {
     const query = `mutation projectAdd($project: ProjectInputs!) {
       projectAdd(project: $project) {
@@ -103,7 +128,7 @@ export default class ProjectList extends React.Component {
         <h1>Project Tracker</h1>
         <ProjectFilter />
         <hr />
-        <ProjectTable projects={projects} closeProject={this.closeProject}/>
+        <ProjectTable projects={projects} closeProject={this.closeProject} deleteProject={this.deleteProject}/>
         <hr />
         <ProjectAdd createProject={this.createProject} />
         <hr />

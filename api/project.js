@@ -60,4 +60,18 @@ async function add(_, { project }) {
   return savedProject;
 }
 
-module.exports = { list, add, get, update};
+async function remove(_, { id }) {
+  const db = getDb();
+  const project = await db.collection('projects').findOne({id});
+  if(!project) return false;
+  project.deleted = new Date();
+
+  let result = await db.collection('deleted_projects').insertOne(project);
+  if(result.insertedId){
+    result = await db.collection('projects').deleteOne({id});
+    return result.deletedCount === 1;
+  }
+  return false;
+}
+
+module.exports = { list, add, get, update, delete: remove };

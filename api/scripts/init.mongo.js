@@ -13,6 +13,7 @@
 /* eslint no-restricted-globals: "off" */
 
 db.projects.remove({});
+db.deleted_issues.remove({});
 
 const projectsDB = [
   {
@@ -56,3 +57,5 @@ db.projects.createIndex({ id: 1 }, { unique: true });
 db.projects.createIndex({ status: 1 });
 db.projects.createIndex({ owner: 1 });
 db.projects.createIndex({ created: 1 });
+
+db.deleted_issues.createIndex({ id: 1 }, { unique: true });

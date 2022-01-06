@@ -16,6 +16,7 @@ const resolvers = {
     setAboutMessage: about.setMessage,
     projectAdd: project.add,
     projectUpdate: project.update,
+    projectDelete: project.delete,
   },
   GraphQLDate,
 };

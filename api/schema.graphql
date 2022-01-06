@@ -57,4 +57,5 @@ type Mutation {
   setAboutMessage(message: String!): String
   projectAdd(project: ProjectInputs!): Project!
   projectUpdate(id: Int!, changes: ProjectUpdateInputs!): Project!
+  projectDelete(id: Int!): Boolean!
 }
