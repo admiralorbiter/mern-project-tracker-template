@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NumInput from './NumInput.jsx';
+import TextInput from './TextInput.jsx';
 
 import graphQLFetch from './graphQLFetch.js';
 
@@ -51,16 +52,7 @@ export default class ProjectEdit extends React.Component {
     
         const { match: { params: { id } } } = this.props;
         const data = await graphQLFetch(query, { id });
-        if (data) {
-          const { project } = data;
-          project.due = project.due ? project.due.toDateString() : '';
-          project.effort = project.effort != null ? project.effort.toString() : '';
-          project.owner = project.owner != null ? project.owner : '';
-          project.description = project.description != null ? project.description : '';
-          this.setState({ project});
-        } else {
-          this.setState({ project: {}});
-        }
+        this.setState({ project: data.project ? data.project : {} });
       }
     
       render() {
@@ -100,10 +92,11 @@ export default class ProjectEdit extends React.Component {
                 <tr>
                   <td>Owner:</td>
                   <td>
-                    <input
+                    <TextInput
                       name="owner"
                       value={owner}
                       onChange={this.onChange}
+                      key={id}
                     />
                   </td>
                 </tr>
@@ -131,23 +124,26 @@ export default class ProjectEdit extends React.Component {
                 <tr>
                   <td>Title:</td>
                   <td>
-                    <input
+                    <TextInput
                       size={50}
                       name="title"
                       value={title}
                       onChange={this.onChange}
+                      key={id}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Description:</td>
                   <td>
-                    <textarea
+                    <TextInput
+                      tag="textarea"
                       rows={8}
                       cols={50}
                       name="description"
                       value={description}
                       onChange={this.onChange}
+                      key={id}
                     />
                   </td>
                 </tr>
