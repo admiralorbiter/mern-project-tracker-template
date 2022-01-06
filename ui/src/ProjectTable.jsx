@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, NavLink, withRouter} from 'react-router-dom';
 import {Button, Tooltip, OverlayTrigger} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {trash} from '@fortawesome/free-solid-svg-icons';
+import {faMinusCircle, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 
 const ProjectRow = withRouter(({project, location:{search}, closeProject, deleteProject, index}) => {
@@ -29,13 +29,13 @@ const ProjectRow = withRouter(({project, location:{search}, closeProject, delete
         {' | '}
         <OverlayTrigger delayShow={1000} overlay={closeTooltip}>
           <Button bsSize="xsmall" onClick={() => { closeIssue(index); }}>
-            <FontAwesomeIcon icon={trash}/>
+            <FontAwesomeIcon icon={faMinusCircle}/>
           </Button>
         </OverlayTrigger>
         {' '}
         <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
           <Button bsSize="xsmall" onClick={() => { deleteIssue(index); }}>
-             <i class="fas fa-trash"></i>
+            <FontAwesomeIcon icon={faTrash}/>
           </Button>
         </OverlayTrigger>
       </td>
