@@ -13,6 +13,7 @@ export default class ProjectList extends React.Component {
     super();
     this.state = { projects: [] };
     this.createProject = this.createProject.bind(this);
+    this.closeProject = this.closeProject.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +60,27 @@ export default class ProjectList extends React.Component {
     }
   }
 
+  async closeProject(index){
+    const query = `mutation projectClose($id: Int!) {
+      projectUpdate(id: $id, changes: {status: Closed}) {
+        id title status owner
+        effort created due description
+      }
+    }`;
+
+    const { projects } = this.state;
+    const data = await graphQLFetch(query, { id: projects[index].id });
+    if(data){
+      this.setState(prevState => {
+        const newList = [...prevState.projects];
+        newList[index] = data.projectUpdate;
+        return { projects: newList };
+      });
+    }else{
+      this.loadData();
+    }
+  }
+
   async createProject(project) {
     const query = `mutation projectAdd($project: ProjectInputs!) {
       projectAdd(project: $project) {
@@ -81,7 +103,7 @@ export default class ProjectList extends React.Component {
         <h1>Project Tracker</h1>
         <ProjectFilter />
         <hr />
-        <ProjectTable projects={projects} />
+        <ProjectTable projects={projects} closeProject={this.closeProject}/>
         <hr />
         <ProjectAdd createProject={this.createProject} />
         <hr />

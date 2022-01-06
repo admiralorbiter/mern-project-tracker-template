@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, NavLink, withRouter} from 'react-router-dom';
 
-const ProjectRow = withRouter(({project, location:{search}}) => {
+const ProjectRow = withRouter(({project, location:{search}, closeProject, index}) => {
   const selectLocation = { pathname: `/projects/${project.id}`, search };
   return (
     <tr>
@@ -16,14 +16,16 @@ const ProjectRow = withRouter(({project, location:{search}}) => {
         <Link to={`/edit/${project.id}`}>Edit</Link>
         {' | '}
         <NavLink to={selectLocation}>Details</NavLink>
+        {' | '}
+        <button type="button" onClick={() => closeProject(index)}>Close</button>
       </td>
     </tr>
   );
 });
 
-export default function ProjectTable({ projects }) {
-  const projectRows = projects.map(project => (
-    <ProjectRow key={project.id} project={project} />
+export default function ProjectTable({ projects, closeProject }) {
+  const projectRows = projects.map((project, index) => (
+    <ProjectRow key={project.id} project={project} closeProject={closeProject} index={index}/>
   ));
 
   return (
