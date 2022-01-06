@@ -1,6 +1,7 @@
 import React from 'react';
 import URLSearchParams from 'url-search-params';
 import { Route } from 'react-router-dom';
+import { FormLabel } from 'react-bootstrap';
 
 import ProjectAdd from './ProjectAdd.jsx';
 import graphQLFetch from './graphQLFetch.js';
@@ -125,7 +126,7 @@ export default class ProjectList extends React.Component {
 
     return (
       <React.Fragment>
-        <h1>Project Tracker</h1>
+        <h1><FormLabel>Project Tracker</FormLabel></h1>
         <ProjectFilter />
         <hr />
         <ProjectTable projects={projects} closeProject={this.closeProject} deleteProject={this.deleteProject}/>

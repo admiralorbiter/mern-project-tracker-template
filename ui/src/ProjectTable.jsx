@@ -1,8 +1,18 @@
 import React from 'react';
 import {Link, NavLink, withRouter} from 'react-router-dom';
+import {Button, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {trash} from '@fortawesome/free-solid-svg-icons';
+
 
 const ProjectRow = withRouter(({project, location:{search}, closeProject, deleteProject, index}) => {
   const selectLocation = { pathname: `/projects/${project.id}`, search };
+  const closeTooltip = (
+    <Tooltip id="close-tooltip" placement="top">Close Project</Tooltip>
+  );
+  const deleteTooltip = (
+    <Tooltip id="delete-tooltip" placement="top">Delete Project</Tooltip>
+  );
   return (
     <tr>
       <td>{project.id}</td>
@@ -17,9 +27,17 @@ const ProjectRow = withRouter(({project, location:{search}, closeProject, delete
         {' | '}
         <NavLink to={selectLocation}>Details</NavLink>
         {' | '}
-        <button type="button" onClick={() => closeProject(index)}>Close</button>
-        {' | '}
-        <button type="button" onClick={() => deleteProject(project.id)}>Delete</button>
+        <OverlayTrigger delayShow={1000} overlay={closeTooltip}>
+          <Button bsSize="xsmall" onClick={() => { closeIssue(index); }}>
+            <FontAwesomeIcon icon={trash}/>
+          </Button>
+        </OverlayTrigger>
+        {' '}
+        <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
+          <Button bsSize="xsmall" onClick={() => { deleteIssue(index); }}>
+             <i class="fas fa-trash"></i>
+          </Button>
+        </OverlayTrigger>
       </td>
     </tr>
   );

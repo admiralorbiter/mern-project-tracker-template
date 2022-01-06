@@ -2,7 +2,8 @@
 
 import React from 'react';
 import URLSearchParams from 'url-search-params';
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import {Button} from 'react-bootstrap';
 
 
 
@@ -62,6 +63,8 @@ class ProjectFilter extends React.Component {
     const params = new URLSearchParams(search);
     this.setState({
     status: params.get('status') || '',
+    effortMin: params.get('effortMin') || '',
+    effortMax: params.get('effortMax') || '',
     changed: false,
     });
   }
@@ -97,15 +100,9 @@ class ProjectFilter extends React.Component {
           onChange={this.onChangeEffortMax}
         />
         {' '}
-        <button type="button" onClick={this.applyFilter}>Apply</button>
+        <Button bsStyle="primary" type="button" onClick={this.applyFilter}>Apply</Button>
         {' '}
-        <button
-          type="button"
-          onClick={this.showOriginalFilter}
-          disabled={!changed}
-        >
-          Reset
-        </button>
+        <Button type="button" onClick={this.showOriginalFilter}>Reset</Button>
       </div>
     );
   }
