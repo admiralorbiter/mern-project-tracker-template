@@ -32,5 +32,5 @@ export default class ProjectAdd extends React.Component {
 }
 
 ProjectAdd.propTypes = {
-  projectAdd: PropTypes.func.isRequired,
+  createProject: PropTypes.func.isRequired,
 };
