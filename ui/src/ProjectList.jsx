@@ -1,7 +1,7 @@
 import React from 'react';
 import URLSearchParams from 'url-search-params';
 import { Route } from 'react-router-dom';
-import { FormLabel } from 'react-bootstrap';
+import {Card, Accordion} from 'react-bootstrap';
 
 import ProjectAdd from './ProjectAdd.jsx';
 import graphQLFetch from './graphQLFetch.js';
@@ -126,8 +126,23 @@ export default class ProjectList extends React.Component {
 
     return (
       <React.Fragment>
-        <h1><FormLabel>Project Tracker</FormLabel></h1>
-        <ProjectFilter />
+        {/* <h1><FormLabel>Project Tracker</FormLabel></h1> */}
+        {/* <Card>
+          <Card.Header>
+            <Card.Title>Project Tracker</Card.Title>
+          </Card.Header>
+          <Card.Body collapsible="true">
+            <ProjectFilter />
+          </Card.Body>
+        </Card> */}
+        <Accordion>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Filter</Accordion.Header>
+            <Accordion.Body>
+              <ProjectFilter />
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
         <hr />
         <ProjectTable projects={projects} closeProject={this.closeProject} deleteProject={this.deleteProject}/>
         <hr />

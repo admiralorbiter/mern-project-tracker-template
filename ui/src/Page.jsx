@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink} from 'react-router-dom'
-import {Navbar, Nav, NavItem, OverlayTrigger, Tooltip, Dropdown} from 'react-bootstrap'
+import {Navbar, Nav, NavItem, OverlayTrigger, Tooltip, Dropdown, Container} from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 
@@ -22,7 +22,7 @@ function NavBar(){
                 <Nav.Link href="/report">Report</Nav.Link>
                 {/* <NavLink to="/report">Report</NavLink> */}
             </Nav>
-            <Nav pullRight>
+            <Nav>
                 {/* <NavItem>
                     <OverlayTrigger
                         placement="left"
@@ -55,7 +55,9 @@ export default function Page(){
     return (
         <div>
             <NavBar/>
-            <Contents/>
+            <Container fluid>
+                <Contents/>
+            </Container>
             <Footer/>
         </div>
     )
