@@ -3,7 +3,7 @@
 import React from 'react';
 import URLSearchParams from 'url-search-params';
 import {withRouter} from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonToolbar, FormGroup, FormControl, InputGroup, FormLabel } from 'react-bootstrap';
 
 
 
@@ -76,33 +76,36 @@ class ProjectFilter extends React.Component {
     const params = new URLSearchParams(search);
     return (
       <div>
-        Status:
-        {' '}
-        <select value={status} onChange={this.onChangeStatus}>
+        {/* <select value={status} onChange={this.onChangeStatus}>
           <option value="">(All)</option>
           <option value="New">New</option>
           <option value="Assigned">Assigned</option>
           <option value="Fixed">Fixed</option>
           <option value="Closed">Closed</option>
-        </select>
-        {' '}
-          Effort between:
-        {' '}
-        <input
-          size={5}
-          value={effortMin}
-          onChange={this.onChangeEffortMin}
-        />
-        {' - '}
-        <input
-          size={5}
-          value={effortMax}
-          onChange={this.onChangeEffortMax}
-        />
-        {' '}
-        <Button type="button" onClick={this.applyFilter}>Apply</Button>
-        {' '}
-        <Button type="button" onClick={this.showOriginalFilter}>Reset</Button>
+        </select> */}
+        <FormGroup>
+          <FormLabel>Status:</FormLabel>
+          <FormControl as="select" value={status} onChange={this.onChangeStatus}>
+          <option value="">(All)</option>
+          <option value="New">New</option>
+          <option value="Assigned">Assigned</option>
+          <option value="Fixed">Fixed</option>
+          <option value="Closed">Closed</option>
+          </FormControl>
+        </FormGroup>
+        <FormGroup>
+          <FormLabel>Effort between: </FormLabel>
+          <InputGroup>
+            <FormControl value={effortMin} onChange={this.onChangeEffortMin} />
+            {/* <InputGroup.Append>-</InputGroup.Append> */}
+            {' - '}
+            <FormControl value={effortMax} onChange={this.onChangeEffortMax} />
+          </InputGroup>
+        </FormGroup>
+        <ButtonToolbar>
+          <Button type="button" onClick={this.applyFilter}>Apply</Button>
+          <Button type="button" onClick={this.showOriginalFilter}>Reset</Button>
+        </ButtonToolbar>
       </div>
     );
   }

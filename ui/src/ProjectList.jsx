@@ -135,11 +135,11 @@ export default class ProjectList extends React.Component {
             <ProjectFilter />
           </Card.Body>
         </Card> */}
-        <Accordion>
+        <Accordion className="w-25">
           <Accordion.Item eventKey="0">
             <Accordion.Header>Filter</Accordion.Header>
             <Accordion.Body>
-              <ProjectFilter />
+              <ProjectFilter/>
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
