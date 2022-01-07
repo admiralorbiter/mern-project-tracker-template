@@ -28,13 +28,13 @@ const ProjectRow = withRouter(({project, location:{search}, closeProject, delete
         <NavLink to={selectLocation}>Details</NavLink>
         {' | '}
         <OverlayTrigger delayShow={1000} overlay={closeTooltip}>
-          <Button size="sm" onClick={() => { closeIssue(index); }}>
+          <Button size="sm" onClick={() => { closeProject(index); }}>
             <FontAwesomeIcon icon={faMinusCircle}/>
           </Button>
         </OverlayTrigger>
         {' '}
         <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
-          <Button size="sm" onClick={() => { deleteIssue(index); }}>
+          <Button size="sm" onClick={() => { deleteProject(index); }}>
             <FontAwesomeIcon icon={faTrash}/>
           </Button>
         </OverlayTrigger>

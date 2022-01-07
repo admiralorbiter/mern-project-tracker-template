@@ -84,7 +84,7 @@ export default class ProjectList extends React.Component {
   }
 
   async deleteProject(index) {
-    index--;//Added this so index aligns with id. it differs from the book i follow, so potentially an error somewhere else.
+
     const query = `mutation projectDelete($id: Int!) {
       projectDelete(id: $id)
     }`;
