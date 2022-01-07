@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link, NavLink, withRouter} from 'react-router-dom';
-import {Button, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {Button, Tooltip, OverlayTrigger, Table} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMinusCircle, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { LinkContainer } from 'react-router-bootstrap';
 
 
 const ProjectRow = withRouter(({project, location:{search}, closeProject, deleteProject, index}) => {
@@ -49,7 +50,7 @@ export default function ProjectTable({ projects, closeProject, deleteProject }) 
   ));
 
   return (
-    <table className="bordered-table">
+    <Table bordered condensed hover responsive>
       <thead>
         <tr>
           <th>ID</th>
@@ -65,6 +66,6 @@ export default function ProjectTable({ projects, closeProject, deleteProject }) 
       <tbody>
         {projectRows}
       </tbody>
-    </table>
+    </Table>
   );
 }
