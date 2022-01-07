@@ -3,7 +3,7 @@
 import React from 'react';
 import URLSearchParams from 'url-search-params';
 import {withRouter} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 
 
@@ -100,7 +100,7 @@ class ProjectFilter extends React.Component {
           onChange={this.onChangeEffortMax}
         />
         {' '}
-        <Button bsStyle="primary" type="button" onClick={this.applyFilter}>Apply</Button>
+        <Button type="button" onClick={this.applyFilter}>Apply</Button>
         {' '}
         <Button type="button" onClick={this.showOriginalFilter}>Reset</Button>
       </div>
