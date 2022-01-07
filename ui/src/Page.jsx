@@ -40,11 +40,23 @@ function NavBar(){
     )
 }
 
+function Footer(){
+    return(
+        <small>
+            <p className="text-center">
+                Full source code available at this {' '}
+                <a href="https://github.com/admiralorbiter/mern-project-tracker-template">GitHub repository</a>
+            </p>
+        </small>
+    );
+}
+
 export default function Page(){
     return (
         <div>
             <NavBar/>
             <Contents/>
+            <Footer/>
         </div>
     )
 }
