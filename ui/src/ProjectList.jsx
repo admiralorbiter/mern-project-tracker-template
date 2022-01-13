@@ -135,7 +135,8 @@ export default class ProjectList extends React.Component {
             <ProjectFilter />
           </Card.Body>
         </Card> */}
-        <Accordion className="w-25">
+        {/* <Accordion className="w-50"> */}
+        <Accordion>
           <Accordion.Item eventKey="0">
             <Accordion.Header>Filter</Accordion.Header>
             <Accordion.Body>
@@ -145,9 +146,7 @@ export default class ProjectList extends React.Component {
         </Accordion>
         <hr />
         <ProjectTable projects={projects} closeProject={this.closeProject} deleteProject={this.deleteProject}/>
-        <hr />
         <ProjectAdd createProject={this.createProject} />
-        <hr />
         <Route path={`${match.path}/:id`} component={ProjectDetail} />
       </React.Fragment>
     );
