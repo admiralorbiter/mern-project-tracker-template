@@ -10,9 +10,11 @@ export default class ProjectEdit extends React.Component {
         super();
         this.state = {
             project: {},
+            invalidFields: {}
         };
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onValidityChange = this.onValidityChange.bind(this);
     }
 
 
@@ -35,10 +37,21 @@ export default class ProjectEdit extends React.Component {
           project: { ...prevState.project, [name]: value },
         }));
       }
+
+      onValidityChange(event, valid) {
+        const { name } = event.target;
+        this.setState((prevState) => {
+          const invalidFields = { ...prevState.invalidFields, [name]: !valid };
+          if (valid) delete invalidFields[name];
+          return { invalidFields };
+        });
+      }
     
       async handleSubmit(e) {
         e.preventDefault();
-        const { project } = this.state;
+        const { project , invalidFields} = this.state;
+        if (Object.keys(invalidFields).length !== 0) return;
+        
         console.log(project); // eslint-disable-line no-console
         const query = `mutation projectUpdate(
           $id: Int!
@@ -72,7 +85,7 @@ export default class ProjectEdit extends React.Component {
     
         const { match: { params: { id } } } = this.props;
         const data = await graphQLFetch(query, { id });
-        this.setState({ project: data.project ? data.project : {} });
+        this.setState({ project: data.project ? data.project : {}, invalidFields: {} });
       }
     
       render() {
@@ -83,6 +96,16 @@ export default class ProjectEdit extends React.Component {
             return <h3>{`project with ID ${propsId} not found.`}</h3>;
           }
           return null;
+        }
+
+        const { invalidFields } = this.state;
+        let validationMessage;
+        if (Object.keys(invalidFields).length !== 0) {
+          validationMessage = (
+            <div className="error">
+              Please correct invalid fields before submitting.
+            </div>
+          );
         }
 
         const { project: { title, status } } = this.state;
